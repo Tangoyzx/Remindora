@@ -1,0 +1,52 @@
+{
+  "name": "remindora",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness plugin: collect todos from audio/text and serve a once-per-day briefing MP3.",
+  "type": "module",
+  "main": "dist/plugin.js",
+  "exports": {
+    ".": "./dist/plugin.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "docs",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node --import tsx src/standalone.ts",
+    "dev": "node --import tsx --watch src/standalone.ts",
+    "test": "node --import tsx --test tests/dates.test.ts tests/store.test.ts tests/tts-split.test.ts tests/briefing-cache.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify:local": "node scripts/verify-local.mjs"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-llm": "*",
+    "@deepseek-ai/dsh-tools": "*",
+    "tencentcloud-sdk-nodejs": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.7.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "license": "MIT"
+}
